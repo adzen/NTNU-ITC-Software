@@ -27,6 +27,15 @@ namespace xml
             isTargetFile(openFileDialog1.FileName);
         }
 
+        private bool isGrouped(string id) 
+        {
+            foreach (ListViewGroup group in listView1.Groups)
+            {
+                if (group.Name == id) return true;
+            }
+            return false;
+        }
+
         private bool isTargetFile(string filename)
         {
             XmlDocument doc = new XmlDocument();
@@ -66,13 +75,22 @@ namespace xml
                     {
                         it.SubItems.Add(row_entries.Item(j).InnerText.Trim());   // 後面剩下的項目
                     }
+                    
+                    // 依照流水號分組
+                    if ( !isGrouped(it.Text) ) listView1.Groups.Add(it.Text, it.Text);
+                    foreach (ListViewGroup group in listView1.Groups)
+                    {
+                        if (group.Name == it.Text)
+                        {
+                            it.Group = group;
+                            break;
+                        }
+                    }
+                    
                     listView1.Items.Add(it);   // 插入這行
                 }
 
                 listView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-
-
-                
             }
             catch (Exception e)
             {
@@ -81,6 +99,22 @@ namespace xml
             }
 
             return true;
+        }
+
+        private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void listView1_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            string id = e.Item.Group.Name;
+            bool check = e.Item.Checked;
+
+            foreach (ListViewItem item in e.Item.Group.Items)
+            {
+                item.Checked = check;
+            }
         }
     }
 }

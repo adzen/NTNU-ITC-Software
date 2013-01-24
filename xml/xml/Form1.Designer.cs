@@ -52,19 +52,23 @@
             // 
             // listView1
             // 
-            this.listView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView1.CheckBoxes = true;
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(12, 41);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(790, 357);
+            this.listView1.Size = new System.Drawing.Size(800, 300);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listView1_ItemChecked);
+            this.listView1.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView1_ItemSelectionChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(814, 410);
+            this.ClientSize = new System.Drawing.Size(814, 371);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.openFileButton);
             this.Name = "Form1";
